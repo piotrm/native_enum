@@ -11,11 +11,11 @@ module ActiveRecord
       alias_method :native_database_types_without_enum, :native_database_types
       alias_method :native_database_types, :native_database_types_with_enum
 
-      def type_to_sql_with_enum type, limit=nil, *args
+      def type_to_sql_with_enum(type, limit: nil, **args)
         if type.to_s == "enum" || type.to_s == "set"
           "#{type}(#{quoted_comma_list limit})"
         else
-          type_to_sql_without_enum type, limit, *args
+          type_to_sql_without_enum(type, limit: limit, **args)
         end
       end
       alias_method :type_to_sql_without_enum, :type_to_sql
